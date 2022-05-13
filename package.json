@@ -1,0 +1,40 @@
+{
+  "name": "ebanux-contact-form",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "@emotion/react": "~11.9.0",
+    "@emotion/styled": "~11.8.1",
+    "@mui/material": "~5.7.0",
+    "next": "~12.1.6",
+    "nodemailer": "~6.7.5",
+    "react": "~18.1.0",
+    "react-dom": "~18.1.0",
+    "dotenv": "~16.0.1"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
