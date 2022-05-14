@@ -21,8 +21,8 @@ export default function(req, res) {
   const mailData = {
     from: req.body.email,
     to: process.env.GMAIL_USER,
-    subject: `Message From ${req.body.full_name}`,
-    html: `<div>${req.body.message}</div><p>Sent from: ${req.body.full_name}</p>`
+    subject: `Message From ${req.body.name}`,
+    html: `<div>${req.body.message}</div><p>Sent from: ${req.body.name}</p>`
   }
 
   transporter.sendMail(mailData, function(err, info) {
