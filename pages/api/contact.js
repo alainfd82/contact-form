@@ -1,4 +1,4 @@
-export default function(req, res) {
+export default function Contact(req, res) {
   const nodemailer = require('nodemailer');
 
   const transporter = nodemailer.createTransport({
@@ -29,7 +29,7 @@ export default function(req, res) {
     if (err) {
       res.status(500).json({status: 'fail', err, mailData})
     } else {
-      res.json({status: 'success', info});
+      res.status(200).json({status: 'success', info});
     }
   })
 }

@@ -5,13 +5,12 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import SendIcon from "@mui/icons-material/Send";
 import React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
 import {Card, CardContent, Typography} from "@mui/material";
-import {EditorState, convertToRaw} from 'draft-js'
-import {stateToHTML} from "draft-js-export-html";
-import RichTextEditor from "../components/RixhTextEditor";
+import dynamic from "next/dynamic";
 
-const initialState = JSON.stringify(convertToRaw(EditorState.createEmpty().getCurrentContent()));
+const Editor = dynamic(() => import("../components/RixhTextEditor"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -24,15 +23,11 @@ export default function Home() {
     e.preventDefault()
     console.log('Sending')
 
-    let message_content = message
-    if (message_content !== '')
-      message_content = stateToHTML(message_content.getCurrentContent());
-
     let data = {
       name,
       email,
       subject,
-      message: message_content
+      message
     }
 
     fetch('/api/contact', {
@@ -56,8 +51,6 @@ export default function Home() {
   }
 
   return (
-    <React.Fragment>
-      <CssBaseline/>
       <Container maxWidth="sm">
         <Card variant="outlined">
           <CardContent>
@@ -102,20 +95,17 @@ export default function Home() {
                   required
                 />
 
-                <div>
-                  <RichTextEditor
-                    label={"Start typing your message here... "}
-                    initialValue={message}
-                    onChange={data => setMessage(data)}
-                    placeholder={"Write a message to " + name}
-                  />
-                </div>
+                <Editor
+                  value={message}
+                  onChange={setMessage}
+                  placeholder="Place your message here..."
+                />
 
                 <Button
                   type="submit"
                   variant="contained"
                   endIcon={<SendIcon/>}
-                  disabled={message === ''}
+                  //disabled={message === ''}
                   fullWidth={false}
                 >
                   Send
@@ -125,7 +115,6 @@ export default function Home() {
           </CardContent>
         </Card>
       </Container>
-    </React.Fragment>
   );
 }
 

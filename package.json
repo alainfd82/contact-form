@@ -17,19 +17,16 @@
     "draft-js-import-html": "~1.4.1",
     "mui-rte": "~2.0.1",
     "next": "~12.1.6",
+    "next-transpile-modules": "^9.0.0",
     "nodemailer": "~6.7.5",
     "react": "~18.1.0",
-    "react-dom": "~18.1.0"
+    "react-dom": "~18.1.0",
+    "react-rte": "^0.16.5"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
   },
   "browserslist": {
     "production": [
@@ -42,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^12.1.6",
+    "eslint": "~8.15.0",
+    "eslint-config-next": "12.1.6"
   }
 }
