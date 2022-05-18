@@ -7,17 +7,18 @@ import SendIcon from "@mui/icons-material/Send";
 import React from "react";
 import {Card, CardContent, Typography} from "@mui/material";
 import dynamic from "next/dynamic";
+import {createEmptyValue} from "react-rte/lib/RichTextEditor";
 
-const Editor = dynamic(() => import("../components/RixhTextEditor"), {
+const Editor = dynamic(() => import("react-rte"), {
   ssr: false,
 });
 
-export default function Home() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [subject, setSubject] = useState('')
-  const [message, setMessage] = useState('');
-  const [, setSubmitted] = useState(false)
+export default function ContactForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState(createEmptyValue());
+  const [, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,7 +28,7 @@ export default function Home() {
       name,
       email,
       subject,
-      message
+      message: message.toString()
     }
 
     fetch('/api/contact', {
@@ -45,76 +46,79 @@ export default function Home() {
         setName('')
         setEmail('')
         setSubject('')
-        setMessage('')
+        setMessage(createEmptyValue())
       }
     })
   }
 
   return (
-      <Container maxWidth="sm">
-        <Card variant="outlined">
-          <CardContent>
-            <form onSubmit={handleSubmit}
-            >
-              <Stack spacing={2}>
-                <Typography align="center" variant="h5">Contact Us</Typography>
+    <Container maxWidth="sm">
+      <Card variant="outlined">
+        <CardContent>
+          <form onSubmit={handleSubmit}
+          >
+            <Stack spacing={2}>
+              <Typography align="center" variant="h5">Contact Us</Typography>
 
-                <TextField
-                  id="name"
-                  placeholder="Enter your full name"
-                  label="Name"
-                  variant="outlined"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value)
-                  }}
-                  required
-                  type="text"
-                />
+              <TextField
+                id="name"
+                placeholder="Enter your full name"
+                label="Name"
+                variant="outlined"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value)
+                }}
+                required
+                type="text"
+                size="small"
+              />
 
-                <TextField
-                  id="email"
-                  label="Email"
-                  placeholder="Enter email address"
-                  variant="outlined"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  //error={this.state.emailError}
-                  required
-                  type="email"
-                />
+              <TextField
+                id="email"
+                label="Email"
+                placeholder="Enter email address"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                //error={this.state.emailError}
+                required
+                type="email"
+                size="small"
+              />
 
-                <TextField
-                  id="subject"
-                  label="Subject"
-                  placeholder="Enter email address"
-                  variant="outlined"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  //error={this.state.emailError}
-                  required
-                />
+              <TextField
+                id="subject"
+                label="Subject"
+                placeholder="Enter email address"
+                variant="outlined"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                //error={this.state.emailError}
+                required
+                size="small"
+              />
 
-                <Editor
-                  value={message}
-                  onChange={setMessage}
-                  placeholder="Place your message here..."
-                />
+              <Editor
+                value={message}
+                onChange={setMessage}
+                placeholder="Place your message here..."
+              />
 
-                <Button
-                  type="submit"
-                  variant="contained"
-                  endIcon={<SendIcon/>}
-                  //disabled={message === ''}
-                  fullWidth={false}
-                >
-                  Send
-                </Button>
-              </Stack>
-            </form>
-          </CardContent>
-        </Card>
-      </Container>
+              <Button
+                type="submit"
+                variant="contained"
+                endIcon={<SendIcon/>}
+                //disabled={message === ''}
+                fullWidth={false}
+              >
+                Send
+              </Button>
+            </Stack>
+          </form>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }
 
